@@ -28,7 +28,9 @@
             padding: 40px;
             border-radius: 16px;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
             position: relative;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
@@ -45,6 +47,8 @@
         
         .modal-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
         .modal-price { font-size: 1.2rem; color: #a78bfa; font-weight: 700; margin-bottom: 20px; }
+        
+        /* Product Features */
         .feature-list { list-style: none; margin-bottom: 30px; padding-left: 0; }
         .feature-list li {
             margin-bottom: 12px;
@@ -59,6 +63,25 @@
             color: #8b5cf6;
             font-weight: bold;
         }
+        
+        /* FAQ Specific Styles */
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #23232f;
+            padding-bottom: 15px;
+        }
+        .faq-question {
+            font-weight: 700;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .faq-answer {
+            color: #b3b3c0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
         .btn-ticket {
             display: block;
             width: 100%;
@@ -72,8 +95,15 @@
             font-size: 1.1rem;
             transition: background 0.2s;
             box-sizing: border-box;
+            margin-top: 10px;
         }
         .btn-ticket:hover { background: #4752c4; }
+
+        /* Scrollbar for modal */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #13131a; }
+        ::-webkit-scrollbar-thumb { background: #23232f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
     </style>
 </head>
 <body>
@@ -90,7 +120,8 @@
                 <a href="#" class="active">▦ Products ⌄</a>
                 <a href="#">↻ Updates</a>
                 <a href="#">📊 Status</a>
-                <a href="#">💬 FAQ</a>
+                <!-- FAQ Link updated to open modal -->
+                <a href="javascript:void(0)" onclick="openModal('faq')">💬 FAQ</a>
                 <a href="#">⭐ Reviews</a>
             </div>
             <div class="nav-actions">
@@ -214,7 +245,6 @@
                 <li>Controller support included</li>
                 <li>Customizable menu (Press INSERT)</li>
             </ul>
-            <!-- Using Discord invite link -->
             <a href="https://discord.gg/ENVmwmJTSG" class="btn-ticket" target="_blank">🎫 Purchase via Ticket</a>
         </div>
     </div>
@@ -232,7 +262,6 @@
                 <li>Full Stream-Proof mode</li>
                 <li>Priority support & updates</li>
             </ul>
-            <!-- Using Discord invite link -->
             <a href="https://discord.gg/ENVmwmJTSG" class="btn-ticket" target="_blank">🎫 Purchase via Ticket</a>
         </div>
     </div>
@@ -250,8 +279,58 @@
                 <li>Works for all games (Valorant, Fortnite, Apex)</li>
                 <li>Instant delivery via Discord</li>
             </ul>
-            <!-- Using Discord invite link -->
             <a href="https://discord.gg/ENVmwmJTSG" class="btn-ticket" target="_blank">🎫 Purchase via Ticket</a>
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="modal-faq" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('faq')">&times;</span>
+            <h2 class="modal-title">Frequently Asked Questions</h2>
+            <p style="color: #8b8b9e; margin-bottom: 30px;">Everything you need to know about Echo and our software.</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">How do I receive my software after purchasing?</div>
+                <div class="faq-answer">After you complete your payment in the ticket, a staff member will verify the transaction and provide you with your loader download link and license key directly in the Discord ticket.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is Echo detected?</div>
+                <div class="faq-answer">No. Our software is updated daily to ensure it remains undetected by Easy Anti-Cheat and BattlEye. However, as with any software, there is always a risk. We recommend using an alt account.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What payment methods do you accept?</div>
+                <div class="faq-answer">We accept PayPal (F&F or G&S depending on your region), CashApp, Cryptocurrency (BTC, LTC, ETH), and Gift Cards (Visa, Steam, etc.). All payments are handled securely through our ticket system.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do I need a spoofer for the Slotted cheat?</div>
+                <div class="faq-answer">Yes, if your PC hardware has been previously banned by Epic Games, you will need a spoofer to bypass the HWID ban before using the Slotted version of our software.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I use this while streaming?</div>
+                <div class="faq-answer">Absolutely. Both our External and Slotted products are fully stream-proof. You can use OBS, Streamlabs, or Discord screen share without the cheat appearing on stream.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What are the PC requirements?</div>
+                <div class="faq-answer">You must be running Windows 10 or Windows 11 (64-bit). We currently do not support macOS, Linux, or consoles.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Why is my antivirus flagging the loader?</div>
+                <div class="faq-answer">Because of the way our loader interacts with the game's memory, antivirus programs (especially Windows Defender) will flag it as a false positive. You must disable your antivirus and add the loader folder to your exclusions.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do you offer refunds?</div>
+                <div class="faq-answer">All digital sales are final. We do not offer refunds once the key has been delivered. If you have technical issues, our support team will help you resolve them.</div>
+            </div>
+
+            <a href="https://discord.gg/ENVmwmJTSG" class="btn-ticket" target="_blank">Still need help? Open a Ticket</a>
         </div>
     </div>
 
